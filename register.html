@@ -1,10 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Register | Freshie</title>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {font-family: "Times New Roman", Georgia, Serif;}
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgb(6, 122, 70);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .middle{
+            margin: 0;
+            position: sticky;
+            width: 50%;
+            transform: translateX(50%);
+            text-align: center;
+        }
+        .register-middle{
+            margin: 0;
+            position: sticky;
+            transform: translateY(35%);
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="freshie%20logo.ico">
 </head>
 <body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+        <div class="w3-left">
+            <a href="index.html" class="w3-button">
+                <img class="w3-image" src="freshie logo.png" alt="Hamburger Catering" width="50" height="50">
+            </a>
+        </div>
+        <div class="w3-right w3-vertical-middle w3-hide-small">
+            <a href="index.html#about" class="w3-bar-item w3-button">Informatie</a>
+            <a href="index.html#prizes" class="w3-bar-item w3-button">Prijzen</a>
+            <a href="login.html" class="w3-bar-item w3-button">Inloggen</a>
+        </div>
+        <div class="w3-right w3-vertical-middle w3-hide-large w3-hide-medium">
+            <a href="login.html" class="w3-bar-item w3-button">Inloggen</a>
+        </div>
+    </div>
+</div>
+
+<!-- Page content -->
+<div class="w3-content" style="max-width:1100px">
+    <hr>
+    <!-- Login -->
+    <div class="w3-row w3-padding-64" id="about">
+        <div class="w3-right w3-col m6 w3-padding-large w3-hide-small">
+            <img src="https://miljuschka.nl/wp-content/uploads/2022/08/Risotto-met-zalm-en-erwten-MILJ-22-02-FLINK-600-min-600x750.jpg" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="600" height="750">
+        </div>
+
+        <div class="w3-left w3-col m6 w3-padding-large">
+            <div class="register-middle">
+                <h2 class="middle">Registreren</h2>
+                <div class="w3-container">
+                    <input type="text" placeholder="Gebruikersnaam" id="uname" required>
+                    <input type="password" placeholder="Wachtwoord" id="psw" required>
+
+                    <button type="submit">Registreren</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="ingelogd blijven"> Ingelogd blijven
+                    </label>
+                    <hr>
+                    <div class="niet-geregistreerd middle">
+                        <a href="login.html">Terug</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
