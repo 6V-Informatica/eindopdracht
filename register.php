@@ -1,22 +1,24 @@
 <?php
 // Include config file
+$link = "";
 require_once "config.php";
 
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate username
     if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter a username.";
-    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
-        $username_err = "Username can only contain letters, numbers, and underscores.";
+        $username_err = "Please enter an email.";
+    } elseif(!filter_var(trim($_POST["username"]), FILTER_VALIDATE_EMAIL)){
+        $username_err = "Email is not an email.";
     } else{
         // Prepare a select statement
-        $sql = "SELECT id FROM users WHERE username = ?";
+        $sql = "SELECT id FROM users WHERE email = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -67,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -98,15 +100,101 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Register | Freshie</title>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="newstyle.css">
     <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
+        body {font-family: "Times New Roman", Georgia, Serif;}
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgb(6, 122, 70);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .middle{
+            margin: 0;
+            position: sticky;
+            width: 50%;
+            transform: translateX(50%);
+            text-align: center;
+        }
+        .register-middle{
+            margin: 0;
+            position: sticky;
+            transform: translateY(35%);
+        }
     </style>
+    <link rel="icon" type="image/x-icon" href="freshie%20logo.ico">
 </head>
 <body>
+<!-- Header -->
+<div class="top">
+    <div class="bar white padding card" style="letter-spacing: 4px;">
+        <div class="left">
+            <a href="index.html" class="button">
+                <img class="image" src="freshie logo.png" alt="Freshie Logo" width="50" height="50">
+            </a>
+        </div>
+        <div class="right vertical-middle hide-small">
+            <a href="index.html#about" class="bar-item button">Informatie</a>
+            <a href="index.html#prizes" class="bar-item button">Prijzen</a>
+            <a href="welcome.php" class="bar-item button">Inloggen</a>
+        </div>
+        <div class="right vertical-middle hide-large hide-medium">
+            <a href="welcome.php" class="bar-item button">Inloggen</a>
+        </div>
+    </div>
+</div>
+
+<div class="content" style="max-width: 1100px">
+    <div class="row padding-64" id="registreren">
+        <div class="right col m6 padding-large hide-small">
+            <img src="https://miljuschka.nl/wp-content/uploads/2022/08/Risotto-met-zalm-en-erwten-MILJ-22-02-FLINK-600-min-600x750.jpg" class="round image opacity-min" alt="Voorbeeld eten" width="600" height="750">
+        </div>
+
+        <div class="left col m6 padding-large">
+            <div class="register-middle">
+                <h2 class="middle">Registreren</h2>
+                <div class="container">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <input type="text" name="username" placeholder="Email" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                        <span class="invalid-feedback"><?php echo $username_err; ?></span>
+
+                        <input type="password" name="password" placeholder="Wachtwoord" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
+
+                        <input type="password" name="confirm_password" placeholder="Bevestig wachtwoord" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
+                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+
+                        <button type="submit">Registreren</button>
+                        <hr>
+                        <div class="niet-geregistreerd middle">
+                            <a href="welcome.php">Terug</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OUD
 <div class="wrapper">
     <h2>Sign Up</h2>
     <p>Please fill this form to create an account.</p>
@@ -132,6 +220,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
     </form>
-</div>
+</div> -->
 </body>
 </html>

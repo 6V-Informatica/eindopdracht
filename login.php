@@ -7,13 +7,14 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: welcome.php");
     exit;
 }
-
+$link = "";
 // Include config file
 require_once "config.php";
 
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
+
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -35,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, email, password FROM users WHERE email = ?";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -91,15 +92,104 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Login | Freshie</title>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="newstyle.css">
     <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
+        body {font-family: "Times New Roman", Georgia, Serif;}
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 15px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: rgb(6, 122, 70);
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .middle{
+            margin: 0;
+            position: sticky;
+            width: 50%;
+            transform: translateX(50%);
+            text-align: center;
+        }
+        .inloggen-middle{
+            margin: 0;
+            position: sticky;
+            transform: translateY(35%);
+        }
     </style>
+    <link rel="icon" type="image/x-icon" href="freshie%20logo.ico">
 </head>
 <body>
+
+<div class="top">
+    <div class="bar white padding card" style="letter-spacing:4px;">
+        <div class="left">
+            <a href="index.html" class="button">
+                <img class="image" src="freshie%20logo.png" alt="Freshie logo" width="50" height="50">
+            </a>
+        </div>
+        <div class="right vertical-middle hide-small">
+            <a href="index.html#about" class="bar-item button">Informatie</a>
+            <a href="index.html#prizes" class="bar-item button">Prijzen</a>
+            <a href="welcome.php" class="bar-item button">Inloggen</a>
+        </div>
+        <div class="right vertical-middle hide-large hide-medium">
+            <a href="welcome.php" class="bar-item button">Inloggen</a>
+        </div>
+    </div>
+</div>
+
+<div class="content" style="max-width: 1100px">
+    <div class="row padding-64" id="inloggen">
+        <div class="right col m6 padding-large hide-small">
+            <img src="https://miljuschka.nl/wp-content/uploads/2022/08/Risotto-met-zalm-en-erwten-MILJ-22-02-FLINK-600-min-600x750.jpg" class="round image opacity-min" alt="Voorbeeld eten" width="600" height="750">
+        </div>
+
+        <div class="left col m6 padding-large">
+            <div class="inloggen-middle">
+                <h2 class="middle">Inloggen</h2>
+                <div class="container">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <input type="text" name="username" placeholder="Email" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                        <span class="invalid-feedback"><?php echo $username_err; ?></span>
+
+                        <input type="password" name="password" placeholder="Wachtwoord" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
+
+                        <?php
+                        if(!empty($login_err)){
+                            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+                        }
+                        ?>
+
+                        <button type="submit">Login</button>
+                        <hr>
+                        <div class="niet-geregistreerd middle">
+                            <a class="w3-left">Nog niet geregistreerd</a>
+                            <a class="w3-right" href="register.php">Registreren</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
 <div class="wrapper">
     <h2>Login</h2>
     <p>Please fill in your credentials to login.</p>
@@ -126,6 +216,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
     </form>
-</div>
+</div> -->
 </body>
 </html>

@@ -1,9 +1,9 @@
 <?php
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-define('DB_SERVER', 'localhost');
+define('DB_SERVER', 'freshie.ddns.net');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
+define('DB_PASSWORD', 'FreshieSQL7481');
 define('DB_NAME', 'freshie');
 
 /* Attempt to connect to MySQL database */
