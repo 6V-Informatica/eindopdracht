@@ -95,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login | Freshie</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="newstyle.css">
+    <link rel="stylesheet" href="style.css">
     <style>
         body {font-family: "Times New Roman", Georgia, Serif;}
         h1, h2, h3, h4, h5, h6 {
@@ -132,7 +132,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             transform: translateY(35%);
         }
     </style>
-    <link rel="icon" type="image/x-icon" href="freshie%20logo.ico">
+    <link rel="icon" type="image/x-icon" href="photo\freshie%20logo.png">
 </head>
 <body>
 
@@ -140,7 +140,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="bar white padding card" style="letter-spacing:4px;">
         <div class="left">
             <a href="index.html" class="button">
-                <img class="image" src="freshie%20logo.png" alt="Freshie logo" width="50" height="50">
+                <img class="image" src="photo\freshie%20logo.png" alt="Freshie logo" width="50" height="50">
             </a>
         </div>
         <div class="right vertical-middle hide-small">
@@ -157,7 +157,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <div class="content" style="max-width: 1100px">
     <div class="row padding-64" id="inloggen">
         <div class="right col m6 padding-large hide-small">
-            <img src="https://miljuschka.nl/wp-content/uploads/2022/08/Risotto-met-zalm-en-erwten-MILJ-22-02-FLINK-600-min-600x750.jpg" class="round image opacity-min" alt="Voorbeeld eten" width="600" height="750">
+            <img src="photo\freshie%20inloggen.jpg" class="round image opacity-min" alt="Voorbeeld eten" width="600" height="750">
         </div>
 
         <div class="left col m6 padding-large">
