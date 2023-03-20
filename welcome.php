@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 // Initialize the session
 session_start();
 
@@ -118,26 +118,69 @@ if($stmt = mysqli_prepare($link, $sql)){
         </div>
     </div>
 </div>
-<div class="content" style="max-width:1100px">
+<div class="content" style="max-width: 1300px">
 
     <div class="row padding-64" id="tabel">
-        <h2>Schema</h2>
+        <h1 class="middle">Schema</h1>
         <table id="Overview">
             <tr>
                 <th>Dag</th>
                 <th>Naam</th>
-                <th>Beschrijving</th>
                 <th>Ingrediënten</th>
+                <th>Beschrijving</th>
 
             </tr>
-            <tr>
-                <td>Dag 1</td>
-                <td>Test</td>
-                <td>test 2</td>
-                <td>test 3</td>
-            </tr>
+            <?php
+            $i = 0;
+            foreach ($schema as $value){
+                $i=$i+1;
+
+                $sql = "SELECT naam FROM recepten WHERE ID = ?";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "i", $recept_id);
+                    $recept_id = intval($value);
+
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_store_result($stmt);
+                        mysqli_stmt_bind_result($stmt, $recept_naam);
+                        if(mysqli_stmt_fetch($stmt)){
+                            $naam = $recept_naam;
+                        }
+                    }
+                }
+
+                $sql = "SELECT beschrijving FROM recepten WHERE ID = ?";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "i", $recept_id);
+                    $recept_id = intval($value);
+
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_store_result($stmt);
+                        mysqli_stmt_bind_result($stmt, $recept_beschrijving);
+                        if(mysqli_stmt_fetch($stmt)){
+                            $beschrijving = $recept_beschrijving;
+                        }
+                    }
+                }
+
+                $sql = "SELECT ingredienten FROM recepten WHERE ID = ?";
+                if($stmt = mysqli_prepare($link, $sql)){
+                    mysqli_stmt_bind_param($stmt, "i", $recept_id);
+                    $recept_id = intval($value);
+
+                    if(mysqli_stmt_execute($stmt)){
+                        mysqli_stmt_store_result($stmt);
+                        mysqli_stmt_bind_result($stmt, $recept_ingredienten);
+                        if(mysqli_stmt_fetch($stmt)){
+                            $ingredienten = $recept_ingredienten;
+                        }
+                    }
+                }
+                echo "<tr> <td>$i</td><td>$naam</td><td>$recept_ingredienten</td><td>$beschrijving</td></tr>";
+            }
+            ?>
         </table>
-
+        <a class="right" href="schema-generator.php">Recreëren</a>
     </div>
 </div>
 <script>
