@@ -180,7 +180,7 @@ if($stmt = mysqli_prepare($link, $sql)){
             }
             ?>
         </table>
-        <a class="right" href="schema-generator.php">Recreëren</a>
+        <a class="right" href="schema-generator.php">Verniew schema</a>
     </div>
 </div>
 <script>
