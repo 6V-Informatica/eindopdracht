@@ -8,11 +8,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Welcome | Freshie</title>
+    <title>Settings | Freshie</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
@@ -52,24 +51,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             transform: translateY(35%);
         }
     </style>
-    <link rel="icon" type="image/x-icon" href="photo\freshie%20logo.png">
+    <link rel="icon" type="image/x-icon" href="photo/freshie%20logo.png">
 </head>
 <body>
-
 <div class="top">
     <div class="bar white padding card" style="letter-spacing:4px;">
         <div class="left">
             <a href="index.html" class="button">
-                <img class="image" src="photo\freshie%20logo.png" alt="Freshie logo" width="50" height="50">
+                <img class="image" src="photo/freshie%20logo.png" alt="Freshie logo" width="50" height="50">
             </a>
         </div>
         <div class="right vertical-middle hide-small">
             <a href="index.html" class="bar-item button">Home</a>
-            <a href="settings.php" class="bar-item button">Settings</a>
+            <a href="welcome.php" class="bar-item button">Klantenportaal</a>
             <a href="logout.php" class="bar-item button">Uitloggen</a>
         </div>
         <div class="right vertical-middle hide-large hide-medium">
-            <a href="index.html" class="bar-item button">Settings</a>
+            <a href="welcome.php" class="bar-item button">Klantenportaal</a>
             <a href="logout.php" class="bar-item button">Uitloggen</a>
         </div>
     </div>
@@ -79,15 +77,33 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <!-- About Section -->
     <div class="row padding-64" id="about">
         <div class="col m6 padding-large hide-small">
-            <img src="photo/freshie%20over.jpg" class="round image opacity-min" alt="Over Freshie" width="600" height="750">
+            <img src="photo/freshie%20prijzen.jpg" class="round image opacity-min" alt="Over Freshie" width="600" height="750">
         </div>
 
         <div class="col m6 padding-large">
-            <h1 class="center">Welkom bij Freshie</h1><br>
-            <h6 class="center">Wil jij gezonder eten?</h6>
-            <p class="large"> Dan zit jij goed bij Freshie. Sinds 2022 zijn wij bezig om voor jou een eetschema te maken. Met dit schema voldoe je elke week aan de schijf van vijf en krijg je voldoende voedingsstoffen binnen. Bij Freshie streven wij naar een gezond lichaam en dus ook een gezonde geest. Je kan je eigen schema samenstellen en je voorkeuren uitgeven.</p>
-            <p class="large"> Begin nu en krijg je eerste maand gratis!</p>
-
+            <h1 class="center">Instellingen</h1>
+            <p><b>Voorkeuren</b></p>
+            <form method="post">
+                <p>
+                    <label>
+                        <input type="checkbox" name="geenVlees">    Ik wil geen vlees
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" name="geenLactose">  Ik wil geen lactose
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" name="geenGluten">   Ik wil geen gluten
+                    </label>
+                </p>
+                <button type="submit">Bevestig voorkeuren</button>
+            </form>
+            <div class="niet-geregistreerd middle">
+                <a href="unsubscribe.php">Uitschrijven</a>
+            </div>
         </div>
     </div>
 </div>

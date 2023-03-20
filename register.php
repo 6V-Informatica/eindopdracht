@@ -7,6 +7,42 @@ require_once "config.php";
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
 
+////
+//
+//
+//include "config.php";
+//
+//// Indexed Array
+//$names_arr = array("Yogesh singh", "Sonarika Bhadoria", "Vijay Maurya");
+//
+//// Associative Array
+//$users_arr[] = array("username" => "yssyogesh", "name" => "Yogesh singh");
+//$users_arr[] = array("username" => "bsonarika", "name" => "Sonarika Bhadoria");
+//$users_arr[] = array("username" => "vijay", "name" => "Vijay Maurya");
+//
+//// Serialize the Array
+//$names_str = serialize($names_arr);
+//$users_str = serialize($users_arr);
+//
+//// Insert record
+//$sql = "INSERT INTO contents_arr(arr_serialize1,arr_serialize2) VALUES('" . $names_str . "','" . $users_str . "')";
+//mysqli_query($con, $sql);
+//
+//// Read record
+//$sql = mysqli_query($con, "SELECT * FROM contents_arr");
+//while ($row = mysqli_fetch_assoc($sql)) {
+//
+//    // Unserialize
+//    $arr_unserialize1 = unserialize($row['arr_serialize1']);
+//    $arr_unserialize2 = unserialize($row['arr_serialize2']);
+//
+//    // Display
+//    echo "<pre>";
+//    print_r($arr_unserialize1);
+//    print_r($arr_unserialize2);
+//    echo "</pre>";
+//}
+////
 
 // Deze functie wordt aangeslagen als de form ingeleverd wordt
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -69,7 +105,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (email, password) VALUES (?, ?)";
+        $voorkeuren = array("geenVlees", "", "geenGluten");
+        $sql = "INSERT INTO users (email, password, voorkeuren) VALUES (?, ?, $voorkeuren)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
