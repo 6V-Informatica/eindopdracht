@@ -23,7 +23,7 @@ if($stmt = mysqli_prepare($link, $sql)){
         if(mysqli_stmt_fetch($stmt)){
             $schema = unserialize($schema_serialized);
             if(is_null($schema)){
-                header("location: ");
+                header("location: Schema-generator.php");
             }
         }
     }
