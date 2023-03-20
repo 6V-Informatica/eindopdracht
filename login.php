@@ -139,13 +139,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <div class="top">
     <div class="bar white padding card" style="letter-spacing:4px;">
         <div class="left">
-            <a href="index.html" class="button">
+            <a href="index.php" class="button">
                 <img class="image" src="photo\freshie%20logo.png" alt="Freshie logo" width="50" height="50">
             </a>
         </div>
         <div class="right vertical-middle hide-small">
-            <a href="index.html#about" class="bar-item button">Informatie</a>
-            <a href="index.html#prizes" class="bar-item button">Prijzen</a>
+            <a href="index.php#about" class="bar-item button">Informatie</a>
+            <a href="index.php#prizes" class="bar-item button">Prijzen</a>
             <a href="welcome.php" class="bar-item button">Inloggen</a>
         </div>
         <div class="right vertical-middle hide-large hide-medium">

@@ -57,12 +57,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <div class="top">
     <div class="bar white padding card" style="letter-spacing:4px;">
         <div class="left">
-            <a href="index.html" class="button">
+            <a href="index.php" class="button">
                 <img class="image" src="photo/freshie%20logo.png" alt="Freshie logo" width="50" height="50">
             </a>
         </div>
         <div class="right vertical-middle hide-small">
-            <a href="index.html" class="bar-item button">Home</a>
+            <a href="index.php" class="bar-item button">Home</a>
             <a href="welcome.php" class="bar-item button">Klantenportaal</a>
             <a href="logout.php" class="bar-item button">Uitloggen</a>
         </div>
