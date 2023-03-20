@@ -7,6 +7,27 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 }
+
+$link = "";
+$schema = "";
+require_once "config.php";
+
+$sql = "SELECT schema FROM users WHERE ID = ?";
+if($stmt = mysqli_prepare($link, $sql)){
+    mysqli_stmt_bind_param($stmt, "i", $param_id);
+    $param_id = $_SESSION["id"];
+
+    if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $schema_serialized);
+        if(mysqli_stmt_fetch($stmt)){
+            $schema = unserialize($schema_serialized);
+            if(is_null($schema)){
+                header("location: ");
+            }
+        }
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +72,28 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             position: sticky;
             transform: translateY(35%);
         }
+        #Overview {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #Overview td, #Overview th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #Overview tr:nth-child(even){background-color: #f2f2f2;}
+
+        #Overview tr:hover {background-color: #ddd;}
+
+        #Overview th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
     </style>
     <link rel="icon" type="image/x-icon" href="photo\freshie%20logo.png">
 </head>
@@ -76,20 +119,30 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 </div>
 <div class="content" style="max-width:1100px">
 
-    <!-- About Section -->
-    <div class="row padding-64" id="about">
-        <div class="col m6 padding-large hide-small">
-            <img src="photo/freshie%20over.jpg" class="round image opacity-min" alt="Over Freshie" width="600" height="750">
-        </div>
+    <div class="row padding-64" id="tabel">
+        <h2>Schema</h2>
+        <table id="Overview">
+            <tr>
+                <th>Dag</th>
+                <th>Naam</th>
+                <th>Beschrijving</th>
+                <th>Ingrediënten</th>
 
-        <div class="col m6 padding-large">
-            <h1 class="center">Welkom bij Freshie</h1><br>
-            <h6 class="center">Wil jij gezonder eten?</h6>
-            <p class="large"> Dan zit jij goed bij Freshie. Sinds 2022 zijn wij bezig om voor jou een eetschema te maken. Met dit schema voldoe je elke week aan de schijf van vijf en krijg je voldoende voedingsstoffen binnen. Bij Freshie streven wij naar een gezond lichaam en dus ook een gezonde geest. Je kan je eigen schema samenstellen en je voorkeuren uitgeven.</p>
-            <p class="large"> Begin nu en krijg je eerste maand gratis!</p>
+            </tr>
+            <tr>
+                <td>Dag 1</td>
+                <td>Test</td>
+                <td>test 2</td>
+                <td>test 3</td>
+            </tr>
+        </table>
 
-        </div>
     </div>
 </div>
+<script>
+    function show() {
+
+    }
+</script>
 </body>
 </html>
