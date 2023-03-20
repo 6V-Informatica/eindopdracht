@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 session_start();
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
@@ -12,7 +12,7 @@ $geenGluten_status = false;
 
 require_once "config.php";
 
-$sql = "SELECT weekschema FROM users WHERE ID = ?";
+$sql = "SELECT voorkeuren FROM users WHERE ID = ?";
 if($stmt = mysqli_prepare($link, $sql)){
     mysqli_stmt_bind_param($stmt, "i", $param_id);
     $param_id = $_SESSION["id"];
