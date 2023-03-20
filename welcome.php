@@ -12,7 +12,7 @@ $link = "";
 $schema = "";
 require_once "config.php";
 
-$sql = "SELECT schema FROM users WHERE ID = ?";
+$sql = "SELECT weekschema FROM users WHERE ID = ?";
 if($stmt = mysqli_prepare($link, $sql)){
     mysqli_stmt_bind_param($stmt, "i", $param_id);
     $param_id = $_SESSION["id"];
@@ -95,7 +95,7 @@ if($stmt = mysqli_prepare($link, $sql)){
             color: white;
         }
     </style>
-    <link rel="icon" type="image/x-icon" href="photo\freshie%20logo.png">
+    <link rel="icon" type="image/x-icon" href="photo/freshie%20logo.png">
 </head>
 <body>
 
@@ -103,7 +103,7 @@ if($stmt = mysqli_prepare($link, $sql)){
     <div class="bar white padding card" style="letter-spacing:4px;">
         <div class="left">
             <a href="index.html" class="button">
-                <img class="image" src="photo\freshie%20logo.png" alt="Freshie logo" width="50" height="50">
+                <img class="image" src="photo/freshie%20logo.png" alt="Freshie logo" width="50" height="50">
             </a>
         </div>
         <div class="right vertical-middle hide-small">
