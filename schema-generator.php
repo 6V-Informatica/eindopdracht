@@ -12,7 +12,7 @@ $geenGluten_status = false;
 
 require_once "config.php";
 
-weekschema
+$sql = "SELECT weekschema FROM users WHERE ID = ?";
 if($stmt = mysqli_prepare($link, $sql)){
     mysqli_stmt_bind_param($stmt, "i", $param_id);
     $param_id = $_SESSION["id"];
@@ -70,7 +70,7 @@ if($geenVlees_status){
 //        $numbers[] = $random;
 //    }
 //}
-$sql = "UPDATE users SET 'schema' = ? WHERE id = ?";
+$sql = "UPDATE users SET weekschema = ? WHERE id = ?";
 if($stmt= mysqli_prepare($link, $sql)) {
     mysqli_stmt_bind_param($stmt, "si", $param_schema, $param_id);
     $param_schema = serialize($numbers);

@@ -21,10 +21,11 @@ if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_store_result($stmt);
         mysqli_stmt_bind_result($stmt, $schema_serialized);
         if(mysqli_stmt_fetch($stmt)){
-            $schema = unserialize($schema_serialized);
-            if(is_null($schema)){
+            if(is_null($schema_serialized)){
                 header("location: Schema-generator.php");
             }
+            $schema = unserialize($schema_serialized);
+
         }
     }
 }
