@@ -26,8 +26,8 @@
             </a>
         </div>
         <div class="right vertical-middle hide-small">
-            <a href="index.php#about" class="bar-item button">Informatie</a>
-            <a href="index.php#prizes" class="bar-item button">Prijzen</a>
+            <a href="#about" class="bar-item button">Informatie</a>
+            <a href="#prizes" class="bar-item button">Prijzen</a>
             <a href="welcome.php" class="bar-item button">Inloggen</a>
         </div>
         <div class="right vertical-middle hide-large hide-medium">
@@ -65,7 +65,7 @@
     <hr>
 
     <!-- Menu Section -->
-    <div class="row padding-64" id="prizes">
+    <div class="row padding-64" id='prizes'>
         <div class="col l6 padding-large">
             <h1 class="center">Stel je pakket samen</h1><br>
 

@@ -1,14 +1,16 @@
-<?php /** @noinspection ALL */
+<?php
 // Initialize the session
 session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if((!isset($_SESSION["loggedin"])) || ($_SESSION["loggedin"] !== true)){
     header("location: login.php");
     exit;
 }
-
 $link = "";
+$naam = "";
+$beschrijving = "";
+$ingredienten = "";
 $schema = "";
 require_once "config.php";
 
@@ -39,9 +41,10 @@ if($stmt = mysqli_prepare($link, $sql)){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <style>
-        body {font-family: "Times New Roman", Georgia, Serif;}
+        body {
+            font-family: "Times New Roman", Georgia, serif;}
         h1, h2, h3, h4, h5, h6 {
-            font-family: "Playfair Display";
+            font-family: "Playfair Display", serif;
             letter-spacing: 5px;
         }
         input[type=text], input[type=password] {
@@ -67,11 +70,6 @@ if($stmt = mysqli_prepare($link, $sql)){
             width: 50%;
             transform: translateX(50%);
             text-align: center;
-        }
-        .inloggen-middle{
-            margin: 0;
-            position: sticky;
-            transform: translateY(35%);
         }
         #Overview {
             font-family: Arial, Helvetica, sans-serif;
@@ -176,17 +174,12 @@ if($stmt = mysqli_prepare($link, $sql)){
                         }
                     }
                 }
-                echo "<tr> <td>$i</td><td>$naam</td><td>$recept_ingredienten</td><td>$beschrijving</td></tr>";
+                echo "<tr> <td>$i</td><td>$naam</td><td>$ingredienten</td><td>$beschrijving</td></tr>";
             }
             ?>
         </table>
         <a class="right" href="schema-generator.php">Verniew schema</a>
     </div>
 </div>
-<script>
-    function show() {
-
-    }
-</script>
 </body>
 </html>

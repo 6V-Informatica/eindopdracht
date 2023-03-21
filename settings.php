@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 // Initialize the session
 session_start();
 
@@ -96,9 +96,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
     <style>
-        body {font-family: "Times New Roman", Georgia, Serif;}
+        body {font-family: "Times New Roman", Georgia, serif;}
         h1, h2, h3, h4, h5, h6 {
-            font-family: "Playfair Display";
+            font-family: "Playfair Display", serif;
             letter-spacing: 5px;
         }
         input[type=text], input[type=password] {
@@ -124,11 +124,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             width: 50%;
             transform: translateX(50%);
             text-align: center;
-        }
-        .inloggen-middle{
-            margin: 0;
-            position: sticky;
-            transform: translateY(35%);
         }
     </style>
     <link rel="icon" type="image/x-icon" href="photo/freshie%20logo.png">
