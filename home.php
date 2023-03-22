@@ -1,136 +1,95 @@
 <?php
-voorkeuren = list($voorkeuren);
-vleesVoorkeur = voorkeuren[0];
-lactoseVoorkeur = voorkeuren[1];
-glutenVoorkeur = voorkeuren[2];
+// voorkeuren = list($voorkeuren);
+// vleesVoorkeur = voorkeuren[0];
+// lactoseVoorkeur = voorkeuren[1];
+// glutenVoorkeur = voorkeuren[2];
 // ["geenVlees","geenLactose","geenGluten"]
+session_start();
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: login.php");
+    exit;
+}
+$link = '';
+require_once "config.php";
+
+$sql = "SELECT voorkeuren FROM users WHERE ID = ?";
+if($stmt = mysqli_prepare($link, $sql)){
+    mysqli_stmt_bind_param($stmt, "i", $param_id);
+    $param_id = $_SESSION["id"];
+
+    if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $voorkeuren_serialized);
+        if(mysqli_stmt_fetch($stmt)){
+            $voorkeuren = unserialize($voorkeuren_serialized);
+            foreach ($voorkeuren as $value){
+                if($value == "geenVlees"){
+                    $geenVlees_status = true;
+                }else if($value == "geenLactose"){
+                    $geenLactose_status = true;
+                }else if($value == "geenGluten"){
+                    $geenGluten_status = true;
+                }
+            }
+        }
+    }
+    mysqli_stmt_close($stmt);
+}
+$sql = "SELECT ingredienten FROM recepten WHERE ID = ?";
+if($stmt = mysqli_prepare($link, $sql)){
+    mysqli_stmt_bind_param($stmt, "i", $param_id);
+    $param_id = $_SESSION["id"];
+    mysqli_stmt_close($stmt);
+}
+
+$geenVleesRecepten = rand(1,14);
+$geenFilterRecepten = rand(15,28);
+$geenLactoseRecepten = rand(29,42);
+$geenGlutenRecepten = rand(,);
+
+if ($vleesVoorkeur == false AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
+    $ingredienten = rand(15,28);
+    $ingredienten = list($ingredienten);
+} else if ($vleesVoorkeur == true AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
+
+}
+
+
+
 klantenMail = list();
 // hier moeten de emailadressen die graag een email willen ontvangen uit sql worden uitgelezen en opgeslagen
 aantalKlanten = list();
 // hier moet het totale aantal ingeschreven mensen komen
-var dag;
-var receptMaandag;
-var receptDinsdag;
-var receptWoensdag;
-var receptDonderdag;
-var receptVrijdag;
-var receptZaterdag;
-var receptZondag;
-var idKlant
+
+var $dag;
+var $receptMaandag1;
+var $receptDinsdag1;
+var $receptWoensdag1;
+var $receptDonderdag1;
+var $receptVrijdag1;
+var $receptZaterdag1;
+var $receptZondag1;
+var $receptMaandag2;
+var $receptDinsdag2;
+var $receptWoensdag2;
+var $receptDonderdag2;
+var $receptVrijdag2;
+var $receptZaterdag2;
+var $receptZondag2;
+var $idKlant;
 $subject = "Recept voor vandaag";
 $headers = "From: noreply@freshie.com";
-$alleRecepten = array();
-$random_number1 = rand(1, 14);
-$random_number2 = rand(1, 14);
-$random_number3 = rand(1, 14);
-$random_number4 = rand(1, 14);
-$random_number5 = rand(1, 14);
-$random_number6 = rand(1, 14);
-$random_number7 = rand(1, 14);
-while ($random_number1 == $random_number2 or
-    $random_number2 == $random_number3 or
-    $random_number3 == $random_number4 or
-    $random_number4 == $random_number5 or
-    $random_number5 == $random_number6 or
-    $random_number6 == $random_number7 or
-    $random_number1 == $random_number3 or
-    $random_number1 == $random_number4 or
-    $random_number1 == $random_number5 or
-    $random_number1 == $random_number6 or
-    $random_number1 == $random_number7 or
-    $random_number2 == $random_number4 or
-    $random_number2 == $random_number5 or
-    $random_number2 == $random_number6 or
-    $random_number2 == $random_number7 or
-    $random_number3 == $random_number6 or
-    $random_number3 == $random_number5 or
-    $random_number3 == $random_number7 or
-    $random_number4 == $random_number6 or
-    $random_number4 == $random_number7 or
-    $random_number5 == $random_number7) {
-        $random_number1 = rand(1, 14);
-        $random_number2 = rand(1, 14);
-        $random_number3 = rand(1, 14);
-        $random_number4 = rand(1, 14);
-        $random_number5 = rand(1, 14);
-        $random_number6 = rand(1, 14);
-        $random_number7 = rand(1, 14);
-}
-if (vleesVoorkeur == geenVlees and lactoseVoorkeur == geenLactose and glutenVoorkeur == geenGluten) {
-    var receptMaandag = $niksRecepten[$random_number1];
-    var receptDinsdag = $niksRecepten[$random_number2];
-    var receptWoensdag = $niksRecepten[$random_number3];
-    var receptDonderdag = $niksRecepten[$random_number4];
-    var receptVrijdag = $niksRecepten[$random_number5];
-    var receptZaterdag = $niksRecepten[$random_number6];
-    var receptZondag = $niksRecepten[$random_number7];
-} else if (vleesVoorkeur == geenVlees and lactoseVoorkeur == welLactose and glutenVoorkeur == geenGluten) {
-    var receptMaandag = $alleenLactoseRecepten[$random_number1];
-    var receptDinsdag = $alleenLactoseRecepten[$random_number2];
-    var receptWoensdag = $alleenLactoseRecepten[$random_number3];
-    var receptDonderdag = $alleenLactoseRecepten[$random_number4];
-    var receptVrijdag = $alleenLactoseRecepten[$random_number5];
-    var receptZaterdag = $alleenLactoseRecepten[$random_number6];
-    var receptZondag = $alleenLactoseRecepten[$random_number7];
-} else if (vleesVoorkeur == geenVlees and lactoseVoorkeur == geenLactose and glutenVoorkeur == welGluten) {
-    var receptMaandag = $alleenGlutenRecepten[$random_number1];
-    var receptDinsdag = $alleenGlutenRecepten[$random_number2];
-    var receptWoensdag = $alleenGlutenRecepten[$random_number3];
-    var receptDonderdag = $alleenGlutenRecepten[$random_number4];
-    var receptVrijdag = $alleenGlutenRecepten[$random_number5];
-    var receptZaterdag = $alleenGlutenRecepten[$random_number6];
-    var receptZondag = $alleenGlutenRecepten[$random_number7];
-} else if (vleesVoorkeur == geenVlees and lactoseVoorkeur == welLactose and glutenVoorkeur == welGluten) {
-    var receptMaandag = $geenVleesRecepten[$random_number1];
-    var receptDinsdag = $geenVleesRecepten[$random_number2];
-    var receptWoensdag = $geenVleesRecepten[$random_number3];
-    var receptDonderdag = $geenVleesRecepten[$random_number4];
-    var receptVrijdag = $geenVleesRecepten[$random_number5];
-    var receptZaterdag = $geenVleesRecepten[$random_number6];
-    var receptZondag = $geenVleesRecepten[$random_number7];
-} else if (vleesVoorkeur == welVlees and lactoseVoorkeur == geenLactose and glutenVoorkeur == geenGluten) {
-    var receptMaandag = $alleenVleesRecepten[$random_number1];
-    var receptDinsdag = $alleenVleesRecepten[$random_number2];
-    var receptWoensdag = $alleenVleesRecepten[$random_number3];
-    var receptDonderdag = $alleenVleesRecepten[$random_number4];
-    var receptVrijdag = $alleenVleesRecepten[$random_number5];
-    var receptZaterdag = $alleenVleesRecepten[$random_number6];
-    var receptZondag = $alleenVleesRecepten[$random_number7];
-} else if (vleesVoorkeur == welVlees and lactoseVoorkeur == welLactose and glutenVoorkeur == geenGluten) {
-    var receptMaandag = $VleesLactoseRecepten[$random_number1];
-    var receptDinsdag = $VleesLactoseRecepten[$random_number2];
-    var receptWoensdag = $VleesLactoseRecepten[$random_number3];
-    var receptDonderdag = $VleesLactoseRecepten[$random_number4];
-    var receptVrijdag = $VleesLactoseRecepten[$random_number5];
-    var receptZaterdag = $VleesLactoseRecepten[$random_number6];
-    var receptZondag = $VleesLactoseRecepten[$random_number7];
-} else if (vleesVoorkeur == welVlees and lactoseVoorkeur == geenLactose and glutenVoorkeur == welGluten) {
-    var receptMaandag = $VleesGlutenRecepten[$random_number1];
-    var receptDinsdag = $VleesGlutenRecepten[$random_number2];
-    var receptWoensdag = $VleesGlutenRecepten[$random_number3];
-    var receptDonderdag = $VleesGlutenRecepten[$random_number4];
-    var receptVrijdag = $VleesGlutenRecepten[$random_number5];
-    var receptZaterdag = $VleesGlutenRecepten[$random_number6];
-    var receptZondag = $VleesGlutenRecepten[$random_number7];
-} else if (vleesVoorkeur == welVlees and lactoseVoorkeur == welLactose and glutenVoorkeur == welGluten) {
-    var receptMaandag = $alleRecepten[$random_number1];
-    var receptDinsdag = $alleRecepten[$random_number2];
-    var receptWoensdag = $alleRecepten[$random_number3];
-    var receptDonderdag = $alleRecepten[$random_number4];
-    var receptVrijdag = $alleRecepten[$random_number5];
-    var receptZaterdag = $alleRecepten[$random_number6];
-    var receptZondag = $alleRecepten[$random_number7];
-}
-    aantalNogTeMailen = count(klantenMail);
-    while (aantalNogTeMailen != 0) {
+$aantalNogTeMailen = count($klantenMail);
+
+    while ($aantalNogTeMailen != 0) {
         idKlant = aantalKlanten - aantalNogTeMailen;
         $to = klantenMail[idKlant];
         // hier moet uit de list het emailadres uitgehaald worden
         if (dag == Maandag) {
-        $message = receptMaandag;
+        $message = $receptMaandag1;
         mail($to, $subject, $message, $headers);
         $subject = "Ingrediënten hele week Freshie!"
-        $message = ingrediëntenWeek;
+        $message = $ingredienten;
         mail($to, $subject, $message, $headers);
         } else if (dag == Dinsdag) {
             $message = receptDinsdag;
