@@ -9,8 +9,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: login.php");
     exit;
 }
+
 $link = '';
 require_once "config.php";
+
+$sql = "SELECT weekschema FROM users WHERE ID = ?";
+if($stmt = mysqli_prepare($link, $sql)){
+    mysqli_stmt_bind_param($stmt, "i", $param_id);
+    $param_id = $_SESSION["id"];
+
+    if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $schema_serialized);
+        if(mysqli_stmt_fetch($stmt)){
+            if(is_null($schema_serialized)){
+                header("location: schema-generator.php");
+            }
+            $schema = unserialize($schema_serialized);
+
+        }
+    }
+}
 
 $sql = "SELECT voorkeuren FROM users WHERE ID = ?";
 if($stmt = mysqli_prepare($link, $sql)){
@@ -35,28 +54,50 @@ if($stmt = mysqli_prepare($link, $sql)){
     }
     mysqli_stmt_close($stmt);
 }
-$sql = "SELECT ingredienten FROM recepten WHERE ID = ?";
+
+foreach ($schema as $value){
+    $sql = "SELECT ingredienten FROM recepten WHERE ID = ?";
+    if($stmt = mysqli_prepare($link, $sql)){
+        mysqli_stmt_bind_param($stmt, "i", $recept_id);
+        $recept_id = intval($value);
+
+        if(mysqli_stmt_execute($stmt)){
+            mysqli_stmt_store_result($stmt);
+            mysqli_stmt_bind_result($stmt, $recept_ingredienten);
+            if(mysqli_stmt_fetch($stmt)){
+                $ingredienten = $ingredienten + "<br />" + $recept_ingredienten;
+            }
+        }
+    }
+}
+
+//$geenVleesRecepten = rand(1,14);
+//$geenFilterRecepten = rand(15,28);
+//$geenLactoseRecepten = rand(29,42);
+//$geenGlutenRecepten = rand(,);
+
+//if ($vleesVoorkeur == false AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
+//    $ingredienten = rand(15,28);
+//    $ingredienten = list($ingredienten);
+//} else if ($vleesVoorkeur == true AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
+//
+//}
+//
+
+
+$mail = array();
+
+$sql = "SELECT email FROM users";
 if($stmt = mysqli_prepare($link, $sql)){
-    mysqli_stmt_bind_param($stmt, "i", $param_id);
-    $param_id = $_SESSION["id"];
-    mysqli_stmt_close($stmt);
-}
+    mysqli_stmt_bind_param($stmt, "i", $recept_id);
 
-$geenVleesRecepten = rand(1,14);
-$geenFilterRecepten = rand(15,28);
-$geenLactoseRecepten = rand(29,42);
-$geenGlutenRecepten = rand(,);
-
-if ($vleesVoorkeur == false AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
-    $ingredienten = rand(15,28);
-    $ingredienten = list($ingredienten);
-} else if ($vleesVoorkeur == true AND $lactoseVoorkeur == false AND $glutenVoorkeur == false) {
-
-}
-
-
-
-klantenMail = list();
+    if(mysqli_stmt_execute($stmt)){
+        mysqli_stmt_store_result($stmt);
+        mysqli_stmt_bind_result($stmt, $user_email);
+        if(mysqli_stmt_fetch($stmt)){
+            $mail = $recept_ingredienten;
+        }
+    }
 // hier moeten de emailadressen die graag een email willen ontvangen uit sql worden uitgelezen en opgeslagen
 aantalKlanten = list();
 // hier moet het totale aantal ingeschreven mensen komen
@@ -88,7 +129,7 @@ $aantalNogTeMailen = count($klantenMail);
         if (dag == Maandag) {
         $message = $receptMaandag1;
         mail($to, $subject, $message, $headers);
-        $subject = "Ingrediënten hele week Freshie!"
+        $subject = "Ingrediënten hele week Freshie!";
         $message = $ingredienten;
         mail($to, $subject, $message, $headers);
         } else if (dag == Dinsdag) {
