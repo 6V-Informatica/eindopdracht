@@ -1,13 +1,13 @@
 <?php
-// Initialize the session
+// Start een sessie
 session_start();
 
-// Unset all the session variables
+// Zorg ervoor dat alle data uit de sessie wordt weggehaald
 $_SESSION = array();
 
-// Destroy the session.
+// Maak de sessie kapot
 session_destroy();
 
-// Redirect to login page
+// Verwijs door naar de home-pagina
 header("location: index.php");
 exit;
