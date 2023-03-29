@@ -24,7 +24,7 @@ if($stmt = mysqli_prepare($link, $sql)){
         mysqli_stmt_bind_result($stmt, $schema_serialized);
         if(mysqli_stmt_fetch($stmt)){
             if(is_null($schema_serialized)){
-                header("location: Schema-generator.php");
+                header("location: schema-generator.php");
             }
             $schema = unserialize($schema_serialized);
 
